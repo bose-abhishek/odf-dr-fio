@@ -1,0 +1,6 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: odf-dr-fio
+  labels:
+    name: odf-dr-fio
