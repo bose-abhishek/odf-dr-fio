@@ -11,4 +11,4 @@ iodepth=4
 group_reporting
 
 [job]
-filename=/dev/rbd0
+filename=/dev/rbd
