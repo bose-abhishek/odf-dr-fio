@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: fio-server
-  namespace: simple-fio
+  namespace: odf-dr-fio
 spec:
   selector:
     matchLabels:
@@ -22,7 +22,7 @@ spec:
         ports:
         - containerPort: 8765
           name: fio-server
-        namespace: simple-fio
+        namespace: odf-dr-fio
         command: ["/bin/sh", "-c"]
         args: ["/usr/bin/fio --server"]
         volumeDevices:
@@ -44,7 +44,7 @@ spec:
   volumeClaimTemplates:
   - metadata:
       name: data-vol
-      namespace: simple-fio
+      namespace: odf-dr-fio
     spec:
       accessModes: [ "ReadWriteOnce" ]
       storageClassName: "ocs-external-storagecluster-ceph-rbd"
