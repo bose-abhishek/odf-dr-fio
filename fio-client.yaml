@@ -10,7 +10,7 @@ spec:
       command: ["/bin/sh", "-c"]
       args:
         - "echo *********Fio_Job**************;
-          dnf install wget -y;
+          dnf install wget -y > /dev/null;
           wget https://raw.githubusercontent.com/bose-abhishek/odf-dr-fio/main/fio.job;
           /usr/bin/fio --client=fio-server fio.job;
           sleep 10;
