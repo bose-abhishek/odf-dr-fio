@@ -12,7 +12,7 @@ spec:
         - "echo *********Fio_Job**************;
           dnf install wget -y > /dev/null;
           wget https://raw.githubusercontent.com/bose-abhishek/odf-dr-fio/main/fio.job;
-          /usr/bin/fio --client=fio-server fio.job;
+          /usr/bin/fio --output=/tmp/output.log --client=fio-server fio.job;
           sleep 10;
           grep -A6 \"All clients\" /tmp/output.log;
           sleep 60;
