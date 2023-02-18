@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: fio-server
+  namespace: simple-fio
+spec:
+  selector:
+    matchLabels:
+      app: fio-server # has to match .spec.template.metadata.labels
+  serviceName: "fio-server"
+  replicas: 1 # by default is 1
+  minReadySeconds: 10 # by default is 0
+  template:
+    metadata:
+      labels:
+        app: fio-server # has to match .spec.selector.matchLabels
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: fio-server
+        image: quay.io/abose/fio:latest
+        ports:
+        - containerPort: 8765
+          name: fio-server
+        namespace: simple-fio
+        command: ["/bin/sh", "-c"]
+        args: ["/usr/bin/fio --server"]
+        volumeDevices:
+        - name: data-vol
+          devicePath: /dev/rbd
+    affinity:
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - fio-server
+            topologyKey: "kubernetes.io/hostname"
+    restartPolicy: Never
+  volumeClaimTemplates:
+  - metadata:
+      name: data-vol
+      namespace: simple-fio
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "ocs-external-storagecluster-ceph-rbd"
+      volumeMode: Block
+      resources:
+        requests:
+          storage: 10Gi
+---
