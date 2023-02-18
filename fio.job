@@ -3,12 +3,12 @@ ioengine=libaio
 direct=1
 rw=randwrite
 bs=8k
-numjobs=1
+numjobs=4
 time_based=1
-runtime=120
+runtime=300
 size=10G
 iodepth=4
-group_reporting
+#group_reporting
 
 [job]
 filename=/dev/rbd
