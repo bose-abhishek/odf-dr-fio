@@ -5,7 +5,7 @@ rw=randwrite
 bs=8k
 numjobs=4
 time_based=1
-runtime=3600
+runtime=7200
 size=10G
 iodepth=4
 group_reporting
