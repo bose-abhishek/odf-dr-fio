@@ -5,10 +5,14 @@ rw=randwrite
 bs=8k
 numjobs=4
 time_based=1
-runtime=300
+runtime=600
 size=10G
 iodepth=4
-#group_reporting
+group_reporting
+
+write_bw_log=fio.results
+write_iops_log=fio.results
+write_lat_log=fio.results
 
 [job]
 filename=/dev/rbd
